@@ -52,7 +52,7 @@ Program ini menggunakan _access modifier_ untuk menentukan bagian mana dari clas
 
 - **`private`** digunakan pada atribut (*field*), seperti `idDonatur`, `namaDonatur`, `idPenerima`, dan atribut lainnya. Dengan cara ini, data di dalam class tetap aman dan hanya bisa diakses lewat method yang sudah ada.
 - **`public`** digunakan pada *constructor* dan method yang perlu dipanggil dari class lain, seperti *getter*, *setter*, dan method `getJenisDonatur()` atau `getJenisPenerima()`.
-- **`final`** ipakai pada beberapa atribut ID yang tidak perlu diubah setelah objek dibuat, misalnya `idDonatur` pada class `Donatur`.
+- **`final`** di pakai pada beberapa atribut ID yang tidak perlu diubah setelah objek dibuat, misalnya `idDonatur` pada class `Donatur`.
 
 Contoh pada class `Donatur`:
 ```java
@@ -387,6 +387,7 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 
 <img width="508" height="470" alt="image" src="https://github.com/user-attachments/assets/0e2a7e3e-a37c-4c75-ac52-d7df3e78104c" />
 <br> <img width="417" height="838" alt="image" src="https://github.com/user-attachments/assets/785576fb-3b3c-4f13-b30a-1fb68ac98c38" />
+<br> <img width="413" height="896" alt="image" src="https://github.com/user-attachments/assets/54f71957-dddb-4485-8689-203fbe220224" />
 
 
 <br> **4. Menu Data Donatur**
@@ -418,6 +419,7 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 <br> Menu Penyaluran menghubungkan data donasi dengan data penerima dalam kegiatan redistribusi makanan. Setiap data penyaluran berisi `ID Penyaluran`, `ID Donasi`, `ID Penerima`, `Nama Kegiatan`, `Tanggal Penyaluran`, `Status Penyaluran`, `Jumlah Porsi`, dan `Petugas`. Ketika Admin membuat data penyaluran, sistem terlebih dahulu memastikan bahwa ID Donasi dan ID Penerima sudah ada di sistem. Jadi, penyaluran tidak bisa dibuat jika donasi atau penerima belum terdaftar. Setelah data berhasil dibuat,**status penyaluran otomatis menjadi `Belum Disalurkan`**, artinya data sudah dibuat dan direncanakan, tapi penyaluran belum selesai. Pembuatan data penyaluran tidak berarti makanan sudah diberikan. Setelah kegiatan berjalan, Petugas bisa memperbarui status penyaluran sesuai kondisi. Status ini digunakan untuk menggambarkan perkembangan kegiatan, mulai dari belum disalurkan, dalam proses, hingga sudah disalurkan.
 
 <img width="457" height="895" alt="image" src="https://github.com/user-attachments/assets/58aa8e8a-1295-408f-901d-5600718e4f12" />
+<br> <img width="422" height="577" alt="image" src="https://github.com/user-attachments/assets/a2ec2de3-9edc-4681-8e3f-029f66c54a6f" />
 
 
 <br> **9. Proses Update Data**
@@ -429,6 +431,9 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 
 <br> **10. Proses Update Status Penyaluran oleh Petugas**
 <br> Pada data Penyaluran, ada proses khusus yang hanya bisa dilakukan lewat Menu Petugas, yaitu `Update Status Penyaluran`. Saat Petugas memilih menu Lihat Data Penyaluran, program menampilkan semua data penyaluran beserta statusnya. Petugas bisa memilih fitur `Update Status` dan memasukkan ID Penyaluran yang ingin diubah. Program mencari data tersebut lewat PenyaluranService. Jika data ditemukan, sistem menampilkan ID Penyaluran, nama kegiatan, dan status saat ini sebelum meminta konfirmasi. Setelah Petugas mengonfirmasi, sistem meminta status penyaluran baru dan menyimpannya ke objek Penyaluran. Pembagian fungsi ini dibuat karena Admin bertanggung jawab membuat dan mengelola informasi kegiatan, sedangkan Petugas yang terlibat langsung dalam penyaluran berwenang mencatat perkembangan statusnya. Jadi, status penyaluran tidak hanya sebagai atribut, tapi juga menggambarkan perkembangan kegiatan di sistem.
+
+<img width="422" height="618" alt="image" src="https://github.com/user-attachments/assets/f86644d4-6bc9-45bc-8edb-2f4a2c087372" />
+
 
 <br> **11. Proses Hapus Data**
 <br> Proses Hapus digunakan Admin saat data tidak lagi dibutuhkan di sistem. Admin memasukkan ID data yang ingin dihapus, lalu program mencari objek berdasarkan ID itu. Jika data ditemukan, program menampilkan detail data dan meminta konfirmasi dengan pertanyaan **Yakin ingin menghapus data? `(y/n)`**. Data hanya dihapus dari `ArrayList` jika Admin mengonfirmasi dengan `y`. Jika Admin memilih jawaban lain, proses dibatalkan dan data tetap ada. Mekanisme ini memberi lapisan konfirmasi sebelum data dihapus, sehingga pengguna bisa memastikan bahwa data yang dipilih memang merupakan data yang ingin dihapus.
