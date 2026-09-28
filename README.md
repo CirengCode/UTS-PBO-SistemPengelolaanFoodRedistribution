@@ -41,7 +41,7 @@ Program ini disusun dengan kosep **MVC (Model–View–Controller)** yang dimodi
 | `util` | Package ini berisi class yang menyediakan fungsi bantu untuk beberapa bagian program, terutama dalam membaca dan memvalidasi input dari pengguna. | `InputUtil` |
 | `main` |Package ini menjadi titik awal program. Di dalamnya terdapat class utama yang menjalankan program dengan membuat MenuController dan memulai alur sistem. | `SistemPengelolaanFoodRedistributionMain.java` |
 
-Secara umum, program dimulai dari package main, lalu dilanjutkan ke controller yang menentukan menu dan peran pengguna. Setelah pengguna memilih fitur, controller memanggil service yang sesuai untuk menjalankan proses atau mengelola data. Service kemudian memakai class dari package model sebagai objek data yang dikelola.
+Secara umum, program dimulai dari package `main`, lalu dilanjutkan ke `controller` yang menentukan menu dan peran pengguna. Setelah pengguna memilih fitur, `controller` memanggil `service` yang sesuai untuk menjalankan proses atau mengelola data. `service` kemudian memakai class dari package `model` sebagai objek data yang dikelola.
 
 Package util berfungsi sebagai pendukung proses input. Fungsi seperti membaca input angka, membaca teks, validasi input, dan menunggu pengguna menekan Enter bisa digunakan kembali oleh bagian program lain yang membutuhkannya.
 
