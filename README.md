@@ -373,20 +373,20 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 **1. Tampilan Menu Utama**
 <br> Saat program pertama kali dijalankan, pengguna akan melihat tampilan awal Food Redistribution System dan diminta menentukan role yang ingin digunakan. Terdapat tiga pilihan pada menu awal, yaitu Admin, Petugas, dan Keluar. Jika memilih Admin, pengguna akan masuk ke Menu Admin. Jika memilih Petugas, pengguna akan masuk ke Menu Petugas. Pilihan Keluar akan menghentikan perulangan pada menu utama sehingga program selesai dijalankan. Dengan demikian, MenuController berfungsi sebagai pengatur awal alur program sesuai peran pengguna, sedangkan pengelolaan data dilakukan oleh controller dan service masing-masing.
 
-<img width="522" height="232" alt="image" src="https://github.com/user-attachments/assets/04e22257-3cd6-4dd1-9156-0be440ab8f24" />
+<img width="588" height="277" alt="image" src="https://github.com/user-attachments/assets/7624fa95-7bdd-4e03-9ff2-45b36638df4e" />
 
 
 <br> **2. Menu Admin**
 <br> Setelah memilih role Admin, pengguna diarahkan ke AdminController yang menampilkan menu pengelolaan data. Menu Admin terdiri dari `Donatur`, `Donasi`, `Penerima`, `Penyaluran`, dan `Kembali`. Admin memiliki akses paling luas karena bertanggung jawab atas pengelolaan data utama yang digunakan oleh sistem. Setiap pilihan pada menu tidak langsung mengolah data di dalam controller, tetapi diteruskan kepada Service yang sesuai. Misalnya, ketika memilih Donasi, AdminController akan memanggil DonasiService untuk menjalankan proses pengelolaan data donasi. Pembagian tersebut membuat AdminController lebih berfokus pada pengaturan alur menu, sedangkan proses CRUD ditangani oleh masing-masing service.
 
-<img width="520" height="507" alt="image" src="https://github.com/user-attachments/assets/48fcd28b-91b3-4168-8a56-9c80afe68204" />
+<img width="427" height="408" alt="image" src="https://github.com/user-attachments/assets/1e191ba0-cb41-4796-ac5a-ff173f06e2d9" />
 
 
 <br> **3. Menu Petugas**
 <br> Jika pengguna memilih role Petugas, sistem menjalankan `PetugasController`. Berbeda dengan Admin, Petugas tidak bisa mengelola semua data karena tugasnya fokus pada informasi yang dibutuhkan untuk redistribusi makanan. Menu Petugas terdiri dari `Lihat Data Donasi`, `Lihat Data Penerima`, `Lihat Data Penyaluran`, dan `Kembali`. Petugas hanya bisa melihat data Donasi, Penerima, dan penyaluran saja agar tahu makanan yang tersedia, siapa penerimanya, dan kemana makanan disalurkan. Pada menu Penyaluran, ada fitur tambahan untuk memperbarui status penyaluran. Ini menunjukkan bahwa Petugas tidak hanya membaca data, tapi juga bertanggung jawab atas perkembangan proses penyaluran.
 
-<img width="508" height="470" alt="image" src="https://github.com/user-attachments/assets/0e2a7e3e-a37c-4c75-ac52-d7df3e78104c" />
-<br> <img width="417" height="838" alt="image" src="https://github.com/user-attachments/assets/785576fb-3b3c-4f13-b30a-1fb68ac98c38" />
+<img width="431" height="385" alt="image" src="https://github.com/user-attachments/assets/8cd86f1e-f724-4918-a5c8-fa4927058ce8" />
+<br> <img width="432" height="835" alt="image" src="https://github.com/user-attachments/assets/084e3dd0-40c1-46af-b87c-9a007893bc7c" />
 <br> <img width="413" height="896" alt="image" src="https://github.com/user-attachments/assets/54f71957-dddb-4485-8689-203fbe220224" />
 
 
@@ -418,7 +418,7 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 <br> **8. Menu Data Penyaluran**
 <br> Menu Penyaluran menghubungkan data donasi dengan data penerima dalam kegiatan redistribusi makanan. Setiap data penyaluran berisi `ID Penyaluran`, `ID Donasi`, `ID Penerima`, `Nama Kegiatan`, `Tanggal Penyaluran`, `Status Penyaluran`, `Jumlah Porsi`, dan `Petugas`. Ketika Admin membuat data penyaluran, sistem terlebih dahulu memastikan bahwa ID Donasi dan ID Penerima sudah ada di sistem. Jadi, penyaluran tidak bisa dibuat jika donasi atau penerima belum terdaftar. Setelah data berhasil dibuat,**status penyaluran otomatis menjadi `Belum Disalurkan`**, artinya data sudah dibuat dan direncanakan, tapi penyaluran belum selesai. Pembuatan data penyaluran tidak berarti makanan sudah diberikan. Setelah kegiatan berjalan, Petugas bisa memperbarui status penyaluran sesuai kondisi. Status ini digunakan untuk menggambarkan perkembangan kegiatan, mulai dari belum disalurkan, dalam proses, hingga sudah disalurkan.
 
-<img width="457" height="895" alt="image" src="https://github.com/user-attachments/assets/58aa8e8a-1295-408f-901d-5600718e4f12" />
+<img width="420" height="937" alt="image" src="https://github.com/user-attachments/assets/83acc83f-6622-440f-979e-75e1ab2c6f93" />
 <br> <img width="422" height="577" alt="image" src="https://github.com/user-attachments/assets/a2ec2de3-9edc-4681-8e3f-029f66c54a6f" />
 
 
@@ -445,5 +445,6 @@ Program Food Redistribution System dibuat untuk mengelola proses redistribusi ma
 <br> **12. Kembali dan Keluar dari Program**
 <br> Setiap menu di program memiliki pilihan Kembali agar pengguna bisa berpindah ke menu sebelumnya tanpa menutup program. Ketika Admin memilih Kembali, perulangan pada `menuAdmin()` berhenti dan kontrol kembali ke `MenuController`. Hal yang sama berlaku di Menu Petugas. Dengan mekanisme perulangan _while_ dan variabel penanda seperti `berjalan`, setiap menu bisa terus digunakan sampai pengguna memilih kembali. Setelah kembali ke Menu Utama, pengguna bisa memilih peran lain atau memilih Keluar. Jika memilih Keluar, perulangan utama di `MenuController` berhenti dan program menampilkan **pesan penutup**.
 
-<img width="532" height="510" alt="image" src="https://github.com/user-attachments/assets/5d72474f-822c-40ab-9152-463eaf27e962" />
+<img width="527" height="303" alt="image" src="https://github.com/user-attachments/assets/c56402e6-16a3-4fa8-82ad-9fd348b55d4a" />
+
 
