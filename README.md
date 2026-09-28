@@ -33,18 +33,19 @@ Sistem ini mengelola empat entitas utama yang saling berkaitan:
 Program ini disusun dengan kosep **MVC (Model–View–Controller)** yang dimodifikasi menjadi *layered architecture* sederhana. Struktur program ini dibagi ke beberapa *package* supaya setiap bagian punya tugas yang jelas.
 
 
-| Package | Peran | Isi |
+| Package | Fungsi | Isi |
 |---|---|---|
-| `model` | **Model** yang digunakan untuk merepresentasikan data dan objek dalam sistem. | `Donatur`, `DonaturIndividu`, `DonaturInstansi`, `Penerima`, `PenerimaIndividu`, `PenerimaLembaga`, `Donasi`, `Penyaluran` |
-| `service` | Menangani logika program dan operasi CRUD (tambah, lihat, update, hapus) untuk setiap entitas. | `DonaturService`, `DonasiService`, `PenerimaService`, `PenyaluranService` |
-| `controller` | **Controller** yang mengatur alur program dan menentukan menu yang dapat diakses oleh pengguna `service` yang sesuai. | `MainController` / `MenuController` |
-| `view` (tergabung dalam `controller` & `main` pada program | **View** Berisi fungsi bantu (helper) yang digunakan di beberapa bagian program, terutama untuk menangani validasi input (`System.out.println`) serta membaca input dari `Scanner`. | tampilan menu, tabel data |
-| `util` | Berisi fungsi bantu (*helper*), termasuk validasi input. | `InputValidator` |
-| `main` | Menjadi *Entry point* program yang menjalankan `Controller` pertama kali. | `Main.java` |
+| `model` | Berisi class yang merepresentasikan data atau objek yang digunakan dalam sistem. Class di dalamnya menyimpan atribut, constructor, getter, setter, dan juga menerapkan konsep OOP seperti inheritance. | `Donatur`, `DonaturIndividu`, `DonaturInstansi`, `Penerima`, `PenerimaIndividu`, `PenerimaLembaga`, `Donasi`, `Penyaluran` |
+| `service` | Package ini berisi class yang menangani proses dan logika pengelolaan data. Package ini menjalankan operasi CRUD dan proses lain yang berkaitan dengan data. | `DonaturService`, `DonasiService`, `PenerimaService`, `PenyaluranService`, `PetugasService` |
+| `controller` | Package ini mengatur alur penggunaan program dan menentukan proses atau menu yang bisa dijalankan sesuai peran pengguna. Controller menghubungkan pilihan pengguna ke service yang tepat. | `MenuController`, `AdminController`, `PetugasController` |
+| `util` | Package ini berisi class yang menyediakan fungsi bantu untuk beberapa bagian program, terutama dalam membaca dan memvalidasi input dari pengguna. | `InputUtil` |
+| `main` |Package ini menjadi titik awal program. Di dalamnya terdapat class utama yang menjalankan program dengan membuat MenuController dan memulai alur sistem. | `SistemPengelolaanFoodRedistributionMain.java` |
 
-Pada program bagian **View** tidak dibuat sebagai _package_ terpisah. Menu dan data ditampilkan dengan `System.out.println`, dan input pengguna dibaca dengan `Scanner`. Proses ini dijalankan bersama `Controller` dan `Service` sesuai kebutuhan program.
+Secara umum, program dimulai dari package main, lalu dilanjutkan ke controller yang menentukan menu dan peran pengguna. Setelah pengguna memilih fitur, controller memanggil service yang sesuai untuk menjalankan proses atau mengelola data. Service kemudian memakai class dari package model sebagai objek data yang dikelola.
 
-Secara singkat, alur programnya adalah main ke controller, lalu ke service, dan akhirnya ke model. Setelah proses selesai, hasilnya ditampilkan lagi ke pengguna lewat output console. Dengan pembagian ini, setiap bagian program punya tanggung jawab yang lebih jelas, sehingga class model fokus pada data, service mengurus proses CRUD dan logika program, dan controller mengatur alur serta menu yang dijalankan.
+Package util berfungsi sebagai pendukung proses input. Fungsi seperti membaca input angka, membaca teks, validasi input, dan menunggu pengguna menekan Enter bisa digunakan kembali oleh bagian program lain yang membutuhkannya.
+
+Dengan pembagian ini, package `model` digunakan untuk mewakili data, `service` bertugas mengelola proses dan logika data, `controller` mengatur jalannya program, `util` berisi fungsi-fungsi pendukung, dan main adalah titik awal untuk menjalankan sistem.
 
 ## 🧩 Access Modifier
 Program ini menggunakan _access modifier_ untuk menentukan bagian mana dari class yang bisa diakses dari luar. Pada _class model_, atribut dibuat `private` supaya tidak bisa diakses atau diubah langsung oleh class lain.
@@ -365,28 +366,6 @@ Jika objek yang digunakan adalah `DonaturIndividu`, maka program menjalankan `ge
 Konsep yang sama juga diterapkan pada `getJenisPenerima()` pada kelas `Penerima`, `PenerimaIndividu`, dan `PenerimaLembaga`.
 
 Selain menggunakan **overriding**, program juga memakai **instanceof** untuk memeriksa tipe objek. Cara ini digunakan saat ingin menampilkan atribut tambahan yang berbeda di setiap subclass.
-
-
-## ✅ Validasi Input
-Untuk mencegah kesalahan saat pengguna memasukkan data, program melakukan validasi input dengan `InputUtil` dan juga validasi tambahan di bagian service dan model. Jika ada input yang tidak sesuai, program akan menampilkan pesan kesalahan dan meminta pengguna untuk mengisi ulang data.
-
-Berikut beberapa jenis validasi yang digunakan:
-
-* Input angka seperti ID, jumlah porsi, dan pilihan menu harus benar-benar berupa angka.
-* Input teks seperti nama donatur dan nama makanan tidak boleh dibiarkan kosong.
-* ID yang digunakan saat menambah, mengubah, atau menghapus data harus sesuai dengan data yang sudah ada. Misalnya, idDonatur pada data Donasi harus sudah terdaftar sebelumnya.
-* Input angka tidak boleh bernilai 0 atau negatif.
-* Input konfirmasi seperti `y`/`n`hanya menerima pilihan yang benar.
-
-Dengan validasi ini, jika ada kesalahan input, pengguna akan diminta untuk mengulangi input. Program pun tidak akan langsung berhenti atau crash saat menerima input yang salah.
-
-<br> <img width="412" height="897" alt="image" src="https://github.com/user-attachments/assets/2a54e09e-02b8-419c-b833-760bfb78e166" />
-<br> <img width="415" height="520" alt="image" src="https://github.com/user-attachments/assets/86cb1fda-0243-4f42-acf7-0ed98859eb5d" />
-<br> <img width="420" height="875" alt="image" src="https://github.com/user-attachments/assets/c735f32b-add8-48f9-af28-a31b42c53f7c" />
-<br> <img width="381" height="406" alt="image" src="https://github.com/user-attachments/assets/f25caad4-de36-46de-bc61-b06eaba7148c" />
-<br><img width="342" height="786" alt="image" src="https://github.com/user-attachments/assets/d6fa0ddc-c2cd-40cb-aa3b-1b0a7ae546be" />
-<br> <img width="342" height="640" alt="image" src="https://github.com/user-attachments/assets/54df4850-536e-41a7-a92e-8042f1298d8f" />
-
 
 ## 🍱 Alur Program
 Berikut ini adalah alur program secara garis besar:
