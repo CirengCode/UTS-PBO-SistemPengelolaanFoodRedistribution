@@ -29,7 +29,7 @@ Sistem ini mengelola empat entitas utama yang saling berkaitan:
 >>
 ```
 
-## ⭐ Struktur Program (MVC)
+## ⭐ Struktur Program 
 Program ini disusun dengan kosep **MVC (Model–View–Controller)** yang dimodifikasi menjadi *layered architecture* sederhana. Struktur program ini dibagi ke beberapa *package* supaya setiap bagian punya tugas yang jelas.
 
 
